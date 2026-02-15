@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Source: index.js | Mapbox GL Mouse over event fix plugin</title>
+    <title>Source: index.js | Maplibre GL Layer Groups plugin</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -26,9 +26,9 @@
         
     </div>
     <div class="title">
-        <h1><a href="index.html" class="link">Mapbox GL Mouse over event fix plugin</a></h1>
+        <h1><a href="index.html" class="link">Maplibre GL Layer Groups plugin</a></h1>
         
-            <span class="version">v2.0.0</span>
+            <span class="version">v2.1.0</span>
         
     </div>
     <div class="search-container" id="search-container">
@@ -36,7 +36,7 @@
         <ul></ul>
     </div>
     
-    <div class="lnb-api hidden"><h3>Modules</h3><ul><li><a href="module-MapboxglLayerGroups.html">MapboxglLayerGroups</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="module:MapboxglLayerGroups_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="module-MapboxglLayerGroups.html#addGroup">addGroup</a></li><li><a href="module-MapboxglLayerGroups.html#addLayerToGroup">addLayerToGroup</a></li><li><a href="module-MapboxglLayerGroups.html#createGroupId">createGroupId</a></li><li><a href="module-MapboxglLayerGroups.html#getGroupFirstLayerId">getGroupFirstLayerId</a></li><li><a href="module-MapboxglLayerGroups.html#getGroupLastLayerId">getGroupLastLayerId</a></li><li><a href="module-MapboxglLayerGroups.html#getLayerGroupIds">getLayerGroupIds</a></li><li><a href="module-MapboxglLayerGroups.html#getLayersInGroup">getLayersInGroup</a></li><li><a href="module-MapboxglLayerGroups.html#moveGroup">moveGroup</a></li><li><a href="module-MapboxglLayerGroups.html#removeGroup">removeGroup</a></li></ul></div></li></ul></div>
+    <div class="lnb-api hidden"><h3>Classes</h3><ul><li><a href="module-MapboxglLayerGroups.html">MapboxglLayerGroups</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="module:MapboxglLayerGroups_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="module-MapboxglLayerGroups.html#addGroup">addGroup</a></li><li><a href="module-MapboxglLayerGroups.html#addLayerToGroup">addLayerToGroup</a></li><li><a href="module-MapboxglLayerGroups.html#createGroupId">createGroupId</a></li><li><a href="module-MapboxglLayerGroups.html#getGroupFirstLayerId">getGroupFirstLayerId</a></li><li><a href="module-MapboxglLayerGroups.html#getGroupLastLayerId">getGroupLastLayerId</a></li><li><a href="module-MapboxglLayerGroups.html#getLayerGroupIds">getLayerGroupIds</a></li><li><a href="module-MapboxglLayerGroups.html#getLayersInGroup">getLayersInGroup</a></li><li><a href="module-MapboxglLayerGroups.html#moveGroup">moveGroup</a></li><li><a href="module-MapboxglLayerGroups.html#removeGroup">removeGroup</a></li></ul></div></li></ul></div>
 </nav>
 <div id="resizer"></div>
 
@@ -206,7 +206,11 @@
         }
 
         _getGroupLastLayerIndex(groupId) {
-            return this.map.getStyle().layers.slice().reverse().findIndex(layer => this._getGroupIdsFromLayer(layer).includes(groupId));
+            let reverseLayers = this.map.getStyle().layers.slice().reverse();
+            let reverseIndex = reverseLayers.findIndex(layer => this._getGroupIdsFromLayer(layer).includes(groupId));
+            if (reverseIndex >= 0) {
+                return reverseLayers.length - 1 - reverseIndex;
+            }
         }
 
         _getLayerIdFromIndex(index) {
