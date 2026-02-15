@@ -11,7 +11,7 @@
         "destination": "./docs/"
     },
     "templates": {
-        "name": "Mapbox GL Mouse over event fix plugin",
+        "name": "Maplibre GL Layer Groups plugin",
         "useCollapsibles": true
     }
 }
